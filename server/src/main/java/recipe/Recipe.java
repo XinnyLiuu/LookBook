@@ -28,7 +28,7 @@ public class Recipe {
     private String name;
     private Long calories;
     private String description;
-    private List<String> ingredients;
+    private List<Ingredient> ingredients;
     private String userId; // Corresponding user
 
     public Recipe() {
@@ -70,11 +70,11 @@ public class Recipe {
         this.description = description;
     }
 
-    public List<String> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<String> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 

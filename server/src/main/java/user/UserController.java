@@ -3,7 +3,6 @@ package user;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.DatabaseConstants;
 import constants.HeaderConstants;
-import db.UserCollection;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -12,7 +11,7 @@ import java.util.List;
 
 public class UserController {
 
-    private static final UserCollection collection = new UserCollection(
+    private static final UserDao userDao = new UserDao(
             DatabaseConstants.USER_COLLECTION,
             User.class
     );
@@ -22,7 +21,7 @@ public class UserController {
      * Returns all users in database
      */
     public static Route getAllUsers = (Request request, Response response) -> {
-        List<User> users = collection.getAllFromCollection();
+        List<User> users = userDao.getAllFromCollection();
 
         response.status(200);
         response.type(HeaderConstants.JSON);
@@ -38,7 +37,7 @@ public class UserController {
     public static Route getUserById = (Request request, Response response) -> {
         String id = request.params(":id");
 
-        User user = collection.getDoc(id);
+        User user = userDao.getDoc(id);
         if (user == null) {
             response.status(400);
             response.type(HeaderConstants.JSON);
@@ -69,7 +68,7 @@ public class UserController {
         }
 
         User user = om.readValue(body, User.class);
-        user = collection.getUserByUsernamePassword(user.getUsername(), user.getPassword());
+        user = userDao.getUserByUsernamePassword(user.getUsername(), user.getPassword());
 
         // User is null if no user exists with that combo
         if (user == null) {
@@ -104,7 +103,7 @@ public class UserController {
         }
 
         User user = om.readValue(body, User.class);
-        user = collection.addUser(user);
+        user = userDao.addUser(user);
 
         // Collection returns null if username is already taken
         if (user == null) {
@@ -127,7 +126,7 @@ public class UserController {
     public static Route deleteUser = (Request request, Response response) -> {
         String id = request.params(":id");
 
-        User user = collection.deleteDoc(id);
+        User user = userDao.deleteDoc(id);
 
         if (user == null) {
             response.status(400);
@@ -164,7 +163,7 @@ public class UserController {
         }
 
         User user = om.readValue(body, User.class);
-        user = collection.updateDoc(user.getId(), user);
+        user = userDao.updateDoc(user.getId(), user);
 
         if (user == null) {
             response.status(400);

@@ -1,46 +1,50 @@
 package user;
 
-import constants.DatabaseConstants;
-import db.UserCollection;
+import com.mongodb.client.model.Filters;
+import db.MongoManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import user.User;
 
-import java.util.List;
+public class UserDao extends MongoManager<User> {
 
-/**
- * DAO for User objects in MongoDB
- */
-public class UserDao {
-    private final UserCollection userCollection;
-
+    private Logger log = LoggerFactory.getLogger("user.UserDao");
     public UserDao(String collection, Class<User> type) {
-        userCollection = new UserCollection(DatabaseConstants.USER_COLLECTION, User.class);
+        super(collection, type);
     }
 
     /**
-     * Gets all users from database
+     * Adds an user to the database
      *
-     * @return List of Users
-     */
-    public List<User> getAllUsers() {
-        return userCollection.getAllFromCollection();
-    }
-
-    /**
-     * Gets specified user from database
-     *
-     * @param id ObjectId of user
-     * @return User
-     */
-    public User getUser(String id) {
-        return userCollection.getDoc(id);
-    }
-
-    /**
-     * Creates a new user
-     *
-     * @param user User specifics
-     * @return User
+     * @param user User object
+     * @return Added User
      */
     public User addUser(User user) {
-        return userCollection.addUser(user);
+        // Check if the username exists in the database
+        String username = user.getUsername();
+        User u = coll.find(Filters.eq("username", username)).first();
+
+        // Username is taken
+        if (u != null) {
+            return null;
+        }
+
+        coll.insertOne(user);
+        return coll.find(Filters.eq("username", user.getUsername())).first();
+    }
+
+    /**
+     * Returns user information based on their username and password
+     *
+     * @param username Username
+     * @param password Password
+     * @return User
+     */
+    public User getUserByUsernamePassword(String username, String password) {
+        return coll.find(Filters.and(
+                Filters.eq("username", username),
+                Filters.eq("password", password)
+                )
+        ).first();
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Class used for MongoDB interactions
  */
-abstract class MongoManager<T> {
+public abstract class MongoManager<T> {
 
     public final MongoCollection<T> coll;
 
