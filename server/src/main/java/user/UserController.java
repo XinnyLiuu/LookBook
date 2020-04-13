@@ -30,20 +30,44 @@ public class UserController {
     };
 
     /**
+     * Get an user by their id
+     *
+     * Expected param:
+     * id - userId
+     */
+    public static Route getUserById = (Request request, Response response) -> {
+        String id = request.params(":id");
+
+        User user = collection.getDoc(id);
+        if (user == null) {
+            response.status(400);
+            response.type(HeaderConstants.JSON);
+            return "Bad Request";
+        }
+
+        response.status(200);
+        response.type(HeaderConstants.JSON);
+        return om.writeValueAsString(user);
+    };
+
+    /**
      * Create an user
-     * <p>
+     *
      * Expecting body format:
      * {
-     * "name": "",
-     * "username": "",
-     * "password" : ""
+     *      "name": "",
+     *      "username": "",
+     *      "password" : "",
+     *      "recipes" : []
      * }
      */
     public static Route createUser = (Request request, Response response) -> {
         String body = request.body();
 
         if (body.isEmpty()) {
-            return "Invalid input";
+            response.status(400);
+            response.type(HeaderConstants.JSON);
+            return "Bad Request";
         }
 
         User user = om.readValue(body, User.class);
@@ -55,24 +79,8 @@ public class UserController {
     };
 
     /**
-     * Get an user by their id
-     * <p>
-     * Expected param:
-     * id - userId
-     */
-    public static Route getUserById = (Request request, Response response) -> {
-        String id = request.params(":id");
-
-        User user = collection.getDoc(id);
-
-        response.status(200);
-        response.type(HeaderConstants.JSON);
-        return om.writeValueAsString(user);
-    };
-
-    /**
      * Delete an user by their id
-     * <p>
+     *
      * Expected param:
      * id - userId
      */
@@ -90,5 +98,36 @@ public class UserController {
         response.status(200);
         response.type(HeaderConstants.JSON);
         return String.format("Deleted user with id: %s", id);
+    };
+
+    /**
+     * Update an user by their id
+     *
+     * This method REPLACES the original, so it is IMPORTANT that all of the user's properties are present. Also, it returns the original document.
+     *
+     * Expecting body format:
+     * {
+     *      "_id": "",
+     *      "name": "",
+     *      "username": "",
+     *      "password" : "",
+     *      "recipes": []
+     * }
+     */
+    public static Route updateUser = (Request request, Response response) -> {
+        String body = request.body();
+
+        if (body.isEmpty()) {
+            response.status(400);
+            response.type(HeaderConstants.JSON);
+            return "Bad Request";
+        }
+
+        User user = om.readValue(body, User.class);
+        user = collection.updateUser(user.getId(), user);
+
+        response.status(200);
+        response.type(HeaderConstants.JSON);
+        return om.writeValueAsString(user);
     };
 }

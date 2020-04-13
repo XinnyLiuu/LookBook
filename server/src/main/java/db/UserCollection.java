@@ -32,4 +32,14 @@ public class UserCollection extends MongoManager<User> {
     public User removeUser(String id) {
         return deleteDoc(id);
     }
+
+    /**
+     * Updates an user by id from the database
+     *
+     * @param id ObjectId of User
+     * @return User
+     */
+    public User updateUser(String id, User user) {
+        return updateDoc(user, id);
+    }
 }

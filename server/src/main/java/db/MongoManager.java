@@ -15,12 +15,12 @@ import java.util.List;
  * Class used for MongoDB interactions
  */
 abstract class MongoManager<T> {
+
     public final MongoCollection<T> coll;
-    private final MongoClient mongoClient;
 
     public MongoManager(String collection, Class<T> type) {
         // Start connection
-        mongoClient = MongoClients.create();
+        MongoClient mongoClient = MongoClients.create();
 
         // Query database for all users
         coll = JacksonMongoCollection.builder().build(
@@ -65,5 +65,16 @@ abstract class MongoManager<T> {
      */
     public T deleteDoc(String id) {
         return coll.findOneAndDelete(Filters.eq("_id", id));
+    }
+
+    /**
+     * Returns the original document
+     *
+     * @param doc Document with fields to
+     * @param id ObjectId of document
+     * @return Document
+     */
+    public T updateDoc(T doc, String id) {
+        return coll.findOneAndReplace(Filters.eq("_id", id), doc);
     }
 }

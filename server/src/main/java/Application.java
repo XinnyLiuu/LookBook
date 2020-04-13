@@ -1,3 +1,7 @@
+import constants.HeaderConstants;
+import spark.Request;
+import spark.Response;
+import spark.Route;
 import user.UserController;
 
 import static spark.Spark.*;
@@ -7,13 +11,9 @@ public class Application {
         // Config server
         port(8000);
 
-        // Routes
-        get("/hello", (req, res) -> "Hello World!");
-
         // API routes
         path("/api", () -> {
             path("/user", () -> {
-
                 // Get all users
                 get("/all", UserController.getAllUsers);
 
@@ -25,10 +25,22 @@ public class Application {
 
                 // Delete an user
                 delete("/:id", UserController.deleteUser);
+
+                // Updates an user
+                put("/update", UserController.updateUser);
             });
         });
 
-        // Any other routes not specified above
-        get("*", (req, res) -> "Path not Found");
+        // Bad requests
+        get("*", errorRoute); // Send 404
     }
+
+    /**
+     * Returns bad request
+     */
+    private static final Route errorRoute = (Request request, Response response) -> {
+        response.status(400);
+        response.type(HeaderConstants.JSON);
+        return "Bad Request";
+    };
 }
