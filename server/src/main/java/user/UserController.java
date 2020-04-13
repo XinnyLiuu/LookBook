@@ -9,6 +9,9 @@ import spark.Route;
 
 import java.util.List;
 
+/**
+ * All route related methods for /api/user/*
+ */
 public class UserController {
 
     private static final UserDao userDao = new UserDao(
@@ -30,7 +33,6 @@ public class UserController {
 
     /**
      * Get an user by their id
-     *
      * Expected param:
      * id - userId
      */
@@ -51,7 +53,6 @@ public class UserController {
 
     /**
      * Logs in an user
-     * <p>
      * Expecting body format:
      * {
      * "username": "",
@@ -84,13 +85,11 @@ public class UserController {
 
     /**
      * Create an user
-     *
      * Expecting body format:
      * {
-     *      "name": "",
-     *      "username": "",
-     *      "password" : "",
-     *      "recipes" : []
+     * "name": "",
+     * "username": "",
+     * "password" : ""
      * }
      */
     public static Route createUser = (Request request, Response response) -> {
@@ -119,7 +118,6 @@ public class UserController {
 
     /**
      * Delete an user by their id
-     *
      * Expected param:
      * id - userId
      */
@@ -141,16 +139,13 @@ public class UserController {
 
     /**
      * Update an user by their id
-     *
      * This method REPLACES the original, so it is IMPORTANT that all of the user's properties are present. Also, it returns the original document.
-     *
      * Expecting body format:
      * {
-     *      "_id": "",
-     *      "name": "",
-     *      "username": "",
-     *      "password" : "",
-     *      "recipes": []
+     * "_id": "",
+     * "name": "",
+     * "username": "",
+     * "password" : "",
      * }
      */
     public static Route updateUser = (Request request, Response response) -> {
@@ -168,7 +163,7 @@ public class UserController {
         if (user == null) {
             response.status(400);
             response.type(HeaderConstants.JSON);
-            return "Bad Request";
+            return "Failed to update";
         }
 
         response.status(200);

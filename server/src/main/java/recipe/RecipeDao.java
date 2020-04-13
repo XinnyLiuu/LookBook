@@ -1,18 +1,22 @@
-package db;
+package recipe;
 
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
+import db.MongoManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import recipe.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipeCollection extends MongoManager<Recipe>  {
-    private Logger log = LoggerFactory.getLogger("db.RecipeCollection");
+/**
+ * DAO for User collection interaction
+ */
+public class RecipeDao extends MongoManager<Recipe> {
 
-    public RecipeCollection(String collection, Class<Recipe> type) {
+    private final Logger log = LoggerFactory.getLogger("recipe.RecipeDao");
+
+    public RecipeDao(String collection, Class<Recipe> type) {
         super(collection, type);
     }
 
@@ -50,8 +54,10 @@ public class RecipeCollection extends MongoManager<Recipe>  {
     public List<Recipe> getAllUserRecipe(String userId) {
         List<Recipe> recipes = new ArrayList<>();
 
+        log.debug(String.format("RECIPE FOR USER: %s", userId));
+
         FindIterable<Recipe> cursor = coll.find(Filters.eq("userId", userId));
-        for(Recipe r : cursor) recipes.add(r);
+        for (Recipe r : cursor) recipes.add(r);
 
         return recipes;
     }

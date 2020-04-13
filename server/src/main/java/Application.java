@@ -1,6 +1,5 @@
 import constants.HeaderConstants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import recipe.RecipeController;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -9,7 +8,14 @@ import user.UserController;
 import static spark.Spark.*;
 
 public class Application {
-    private static Logger log = LoggerFactory.getLogger("Application");
+    /**
+     * Returns bad request
+     */
+    private static final Route errorRoute = (Request request, Response response) -> {
+        response.status(400);
+        response.type(HeaderConstants.JSON);
+        return "Bad Request";
+    };
 
     public static void main(String[] args) {
         // Config server
@@ -37,18 +43,30 @@ public class Application {
                 // Updates an user
                 put("/update", UserController.updateUser);
             });
+
+            // Recipe API
+            path("/recipe", () -> {
+                // Get all recipes
+                get("/all", RecipeController.getAllRecipes);
+
+                // Get an recipe by id
+                get("/:id", RecipeController.getRecipeById);
+
+                // Get all recipes for an user
+                get("/user/:userId", RecipeController.getRecipesForUser);
+
+                // Create a new recipe
+                post("/add", RecipeController.createRecipe);
+
+                // Delete a recipe
+                delete("/:id", RecipeController.deleteRecipe);
+
+                // Updates a recipe
+                put("/update", RecipeController.updateRecipe);
+            });
         });
 
         // Bad requests
         get("*", errorRoute); // Send 404
     }
-
-    /**
-     * Returns bad request
-     */
-    private static final Route errorRoute = (Request request, Response response) -> {
-        response.status(400);
-        response.type(HeaderConstants.JSON);
-        return "Bad Request";
-    };
 }

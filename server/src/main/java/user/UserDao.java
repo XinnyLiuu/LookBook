@@ -4,11 +4,14 @@ import com.mongodb.client.model.Filters;
 import db.MongoManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import user.User;
 
+/**
+ * DAO for User collection interaction
+ */
 public class UserDao extends MongoManager<User> {
 
-    private Logger log = LoggerFactory.getLogger("user.UserDao");
+    private final Logger log = LoggerFactory.getLogger("user.UserDao");
+
     public UserDao(String collection, Class<User> type) {
         super(collection, type);
     }

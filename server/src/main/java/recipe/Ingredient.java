@@ -2,17 +2,17 @@ package recipe;
 
 /**
  * Ingredient for recipe POJO
- *
  * JSON - {
- *      name: "",
- *      servingSize: ""
+ * name: "",
+ * servingSize: ""
  * }
  */
 public class Ingredient {
     private String name;
     private String servingSize;
 
-    public Ingredient() { }
+    public Ingredient() {
+    }
 
     public String getName() {
         return name;

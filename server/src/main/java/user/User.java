@@ -3,18 +3,14 @@ package user;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.mongojack.ObjectId;
 
-import java.util.List;
-
 /**
  * User POJO
- *
  * JSON -
  * {
- *     _id: "",
- *     name: "",
- *     username: "",
- *     password: "",
- *     recipes: [ <..ids> ]
+ * _id: "",
+ * name: "",
+ * username: "",
+ * password: ""
  * }
  */
 public class User {
@@ -22,7 +18,6 @@ public class User {
     private String name;
     private String username;
     private String password;
-    private List<String> recipes;
 
     public User() {
     }
@@ -63,14 +58,6 @@ public class User {
         this.password = password;
     }
 
-    public List<String> getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(List<String> recipes) {
-        this.recipes = recipes;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -78,7 +65,6 @@ public class User {
                 ", name='" + name + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", recipes=" + recipes +
                 '}';
     }
 }
