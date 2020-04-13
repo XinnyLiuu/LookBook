@@ -58,7 +58,7 @@ abstract class MongoManager<T> {
     }
 
     /**
-     * Returns the document deleted
+     * Deletes the document based on its id
      *
      * @param id ObjectId of document
      * @return Document
@@ -68,13 +68,13 @@ abstract class MongoManager<T> {
     }
 
     /**
-     * Returns the original document
+     * Updates the document based on its id and object
      *
      * @param doc Document with fields to
-     * @param id ObjectId of document
+     * @param id  ObjectId of document
      * @return Document
      */
-    public T updateDoc(T doc, String id) {
+    public T updateDoc(String id, T doc) {
         return coll.findOneAndReplace(Filters.eq("_id", id), doc);
     }
 }

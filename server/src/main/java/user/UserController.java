@@ -51,6 +51,39 @@ public class UserController {
     };
 
     /**
+     * Logs in an user
+     * <p>
+     * Expecting body format:
+     * {
+     * "username": "",
+     * "password" : "",
+     * }
+     */
+    public static Route loginUser = (Request request, Response response) -> {
+        String body = request.body();
+
+        if (body.isEmpty()) {
+            response.status(400);
+            response.type(HeaderConstants.JSON);
+            return "Bad Request";
+        }
+
+        User user = om.readValue(body, User.class);
+        user = collection.getUserByUsernamePassword(user.getUsername(), user.getPassword());
+
+        // User is null if no user exists with that combo
+        if (user == null) {
+            response.status(400);
+            response.type(HeaderConstants.JSON);
+            return "Authentication Failed";
+        }
+
+        response.status(200);
+        response.type(HeaderConstants.JSON);
+        return om.writeValueAsString(user);
+    };
+
+    /**
      * Create an user
      *
      * Expecting body format:
@@ -72,6 +105,13 @@ public class UserController {
 
         User user = om.readValue(body, User.class);
         user = collection.addUser(user);
+
+        // Collection returns null if username is already taken
+        if (user == null) {
+            response.status(400);
+            response.type(HeaderConstants.JSON);
+            return "Username taken";
+        }
 
         response.status(201);
         response.type(HeaderConstants.JSON);
@@ -124,7 +164,13 @@ public class UserController {
         }
 
         User user = om.readValue(body, User.class);
-        user = collection.updateUser(user.getId(), user);
+        user = collection.updateDoc(user.getId(), user);
+
+        if (user == null) {
+            response.status(400);
+            response.type(HeaderConstants.JSON);
+            return "Bad Request";
+        }
 
         response.status(200);
         response.type(HeaderConstants.JSON);

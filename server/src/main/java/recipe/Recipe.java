@@ -16,13 +16,7 @@ public class Recipe {
     private List<String> ingredients;
     private String userId; // Corresponding user
 
-    public Recipe(String id, String name, Long calories, String description, List<String> ingredients, String userId) {
-        this.id = id;
-        this.name = name;
-        this.calories = calories;
-        this.description = description;
-        this.ingredients = ingredients;
-        this.userId = userId;
+    public Recipe() {
     }
 
     @ObjectId

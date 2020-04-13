@@ -3,7 +3,6 @@ package user;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.mongojack.ObjectId;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,21 +16,6 @@ public class User {
     private List<String> recipes;
 
     public User() {
-    }
-
-    public User(String id, String name, String username, String password, List<String> recipes) {
-        this.id = id;
-        this.name = name;
-        this.username = username;
-        this.password = password;
-        this.recipes = recipes;
-    }
-
-    public User(String name, String username, String password, List<String> recipes) {
-        this.name = name;
-        this.username = username;
-        this.password = password;
-        this.recipes = new ArrayList<>();
     }
 
     @ObjectId
