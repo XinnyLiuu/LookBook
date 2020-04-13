@@ -7,6 +7,21 @@ import java.util.List;
 
 /**
  * Recipe POJO
+ *
+ * JSON -
+ * {
+ *     _id : "",
+ *     name: "",
+ *     calories: "",
+ *     description: "",
+ *     ingredients: [
+ *          {
+ *              name: "",
+ *              servingSize: ""
+ *          }
+ *     ],
+ *     userId: ""
+ * }
  */
 public class Recipe {
     private String id;

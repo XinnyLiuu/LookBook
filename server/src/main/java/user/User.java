@@ -7,6 +7,15 @@ import java.util.List;
 
 /**
  * User POJO
+ *
+ * JSON -
+ * {
+ *     _id: "",
+ *     name: "",
+ *     username: "",
+ *     password: "",
+ *     recipes: [ <..ids> ]
+ * }
  */
 public class User {
     private String id;
