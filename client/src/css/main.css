@@ -1,0 +1,12 @@
+body, html {
+    margin: 0;
+}
+
+#login,
+#register {
+    margin: 80px;
+	padding: 50px;
+	background-color: white;
+	border-radius: 0.25rem;
+	border: 1px solid #ced4da;
+}
