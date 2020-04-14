@@ -1,11 +1,15 @@
 import React from 'react';
 import {
+	withRouter
+} from 'react-router-dom';
+import {
 	Nav,
 	Navbar
 } from 'react-bootstrap';
 
 import {
-	isAuthenticated
+	isAuthenticated,
+	destroySession
 } from '../utils/auth';
 
 /**
@@ -16,9 +20,16 @@ class Header extends React.Component {
 		super(props);
 
 		this.state = {};
+
+		this.doLogout = this.doLogout.bind(this);
 	}
 
-	componentDidMount() {
+	/**
+	 * Destroys the user session and logs the user out
+	 */
+	doLogout() {
+		destroySession();
+		this.props.history.push("/");
 	}
 
 	render() {
@@ -27,16 +38,14 @@ class Header extends React.Component {
 				<Navbar.Brand href="/">LookBook</Navbar.Brand>
 				<Nav className="mr-auto">
 					<Nav.Link href="/all">All Recipes</Nav.Link>
-					{
-						// Check if the user is authenticated, if not hide this
-						isAuthenticated() ? <Nav.Link href="/user/recipes">My Recipes</Nav.Link> : ""
-					}
-					<Nav.Link href="/login">Login</Nav.Link>
-					<Nav.Link href="/register">Register</Nav.Link>
+					{isAuthenticated() ? <Nav.Link href="/user/recipes">My Recipes</Nav.Link> : ""}
+					{isAuthenticated() ? "" : <Nav.Link href="/login">Login</Nav.Link>}
+					{isAuthenticated() ? "" : <Nav.Link href="/register">Register</Nav.Link>}
+					{isAuthenticated() ? <Nav.Link onClick={this.doLogout}>Logout</Nav.Link> : ""}
 				</Nav>
 			</Navbar>
 		);
 	}
 }
 
-export default Header;
+export default withRouter(Header);

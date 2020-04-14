@@ -13,6 +13,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap css
 // Components
 import Header from "./components/Header";
 import Register from "./components/Register";
+import Login from "./components/Login";
 
 // Utils
 
@@ -23,6 +24,7 @@ const routing = (
     <Switch>
       {/* The Switch component is used to help our React application redirect to a specific URL specified in a child Route component. */}
       <Route exact path="/register" component={props => <Register />} />
+      <Route exact path="/login" component={props => <Login />} />
     </Switch>
   </Router>
 );
