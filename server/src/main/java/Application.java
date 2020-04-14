@@ -12,9 +12,9 @@ public class Application {
      * Returns bad request
      */
     private static final Route errorRoute = (Request request, Response response) -> {
-        response.status(400);
+        response.status(404);
         response.type(HeaderConstants.JSON);
-        return "Bad Request";
+        return "Not Found";
     };
 
     public static void main(String[] args) {
