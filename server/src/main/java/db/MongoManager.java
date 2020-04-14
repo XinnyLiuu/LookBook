@@ -20,7 +20,7 @@ public abstract class MongoManager<T> {
 
     public MongoManager(String collection, Class<T> type) {
         // Start connection
-        MongoClient mongoClient = MongoClients.create();
+        MongoClient mongoClient = MongoClients.create(System.getenv("MONGO_URL"));
 
         // Query database for all users
         coll = JacksonMongoCollection.builder().build(
