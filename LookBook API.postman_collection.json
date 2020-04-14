@@ -1,0 +1,303 @@
+{
+	"info": {
+		"_postman_id": "a921b44e-8838-4e9b-9a72-bf2bff25de6a",
+		"name": "LookBook API",
+		"description": "API Endpoints for Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User API",
+			"item": [
+				{
+					"name": "Get all Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user_api}}/all",
+							"host": [
+								"{{user_api}}"
+							],
+							"path": [
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user_api}}/:id",
+							"host": [
+								"{{user_api}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5e94dde2b807754471e9472b"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Xin Liu\",\n    \"username\": \"xinnyliuu\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_api}}/register",
+							"host": [
+								"{{user_api}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"xinnyliuu\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_api}}/login",
+							"host": [
+								"{{user_api}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{user_api}}/:id",
+							"host": [
+								"{{user_api}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5e94dd95b807754471e9470c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Xin Liu\",\n    \"username\": \"Xinnyliuu\",\n    \"password\": \"password\",\n    \"_id\": \"5e94dde2b807754471e9472b\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_api}}/update",
+							"host": [
+								"{{user_api}}"
+							],
+							"path": [
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Recipe API",
+			"item": [
+				{
+					"name": "Get all Recipes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{recipe_api}}/all",
+							"host": [
+								"{{recipe_api}}"
+							],
+							"path": [
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Recipe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{recipe_api}}/:id",
+							"host": [
+								"{{recipe_api}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Recipe for User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{recipe_api}}/user/:userId",
+							"host": [
+								"{{recipe_api}}"
+							],
+							"path": [
+								"user",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "5e94dde2b807754471e9472b"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Recipe for User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"deep Dish Pizza\",\n\t\"calories\": 1500,\n\t\"description\": \"Really really good pizza\",\n\t\"ingredients\": [\n\t\t{\n\t\t\t\"name\": \"Tomatoes\",\n\t\t\t\"servingSize\": \"4 Cups of Tomatoes\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"Dough\",\n\t\t\t\"servingSize\": \"5 Pounds of Dough\"\n\t\t}\n\t],\n\t\"userId\": \"5e94dde2b807754471e9472b\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{recipe_api}}/add",
+							"host": [
+								"{{recipe_api}}"
+							],
+							"path": [
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Recipe for User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{recipe_api}}/:id",
+							"host": [
+								"{{recipe_api}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5e94dfe2b807754471e947d3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Recipe for User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Super Duper Deep Dish Pizza\",\n\t\"calories\": 1500,\n\t\"description\": \"Really really good pizza\",\n\t\"ingredients\": [\n\t\t{\n\t\t\t\"name\": \"Tomatoes\",\n\t\t\t\"servingSize\": \"4 Cups of Tomatoes\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"Dough\",\n\t\t\t\"servingSize\": \"5 Pounds of Dough\"\n\t\t}\n\t],\n\t\"userId\": \"5e94dde2b807754471e9472b\",\n\t\"_id\": \"5e94dfbab807754471e947c1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{recipe_api}}/update",
+							"host": [
+								"{{recipe_api}}"
+							],
+							"path": [
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
