@@ -50,4 +50,14 @@ public class UserDao extends MongoManager<User> {
                 )
         ).first();
     }
+
+    /**
+     * Returns T / F if user exists in the database
+     *
+     * @param id User Id
+     * @return Boolean
+     */
+    public boolean checkIfUserExists(String id) {
+        return coll.find(Filters.eq("_id", id)).first() != null;
+    }
 }

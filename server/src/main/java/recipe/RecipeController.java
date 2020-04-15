@@ -6,6 +6,8 @@ import constants.HeaderConstants;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+import user.User;
+import user.UserDao;
 
 import java.util.List;
 
@@ -17,6 +19,10 @@ public class RecipeController {
     private static final RecipeDao recipeDao = new RecipeDao(
             DatabaseConstants.RECIPE_COLLECTION,
             Recipe.class
+    );
+    private static final UserDao userDao = new UserDao(
+            DatabaseConstants.USER_COLLECTION,
+            User.class
     );
     private static final ObjectMapper om = new ObjectMapper();
 
@@ -91,6 +97,15 @@ public class RecipeController {
         }
 
         Recipe recipe = om.readValue(body, Recipe.class);
+
+        // Check if user exists
+        if (!userDao.checkIfUserExists(recipe.getUserId())) {
+            response.status(400);
+            response.type(HeaderConstants.JSON);
+            return "User does not exist!";
+        }
+
+        // Add recipe
         recipe = recipeDao.addRecipe(recipe);
 
         // Collection returns null if recipe exists for user

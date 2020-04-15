@@ -29,7 +29,7 @@ class Login extends React.Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
-        this.doLogin = this.doRegister.bind(this);
+        this.doLogin = this.doLogin.bind(this);
     }
 
 	/** 
@@ -56,8 +56,10 @@ class Login extends React.Component {
 	 * 
 	 * @param {e} Event 
 	 */
-    async doRegister(e) {
+    async doLogin(e) {
         e.preventDefault();
+
+        const url = "http://localhost:8000/api/user/login";
 
         // Validate  
         let username = this.state.username.trim();
@@ -70,8 +72,6 @@ class Login extends React.Component {
             username: username,
             password: password
         });
-
-        const url = "http://localhost:8000/api/user/login";
 
         try {
             const resp = await post(url, data);

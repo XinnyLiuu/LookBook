@@ -6,9 +6,9 @@
 class User {
 	constructor(id, username, name, isAuth) {
 		this.id = id;
-        this.username = username;
-        this.name = name;
-        this.isAuth = isAuth;
+		this.username = username;
+		this.name = name;
+		this.isAuth = isAuth;
 	}
 
 	getId() {
@@ -19,9 +19,9 @@ class User {
 		return this.username;
 	}
 
-    getName() {
-        return this.name;
-    }
+	getName() {
+		return this.name;
+	}
 
 	getIsAuth() {
 		return this.isAuth;

@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-	withRouter
-} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import {
 	Nav,
 	Navbar
@@ -35,10 +33,11 @@ class Header extends React.Component {
 	render() {
 		return (
 			<Navbar bg="primary" variant="dark">
-				<Navbar.Brand href="/">LookBook</Navbar.Brand>
+				<Navbar.Brand>LookBook</Navbar.Brand>
 				<Nav className="mr-auto">
-					<Nav.Link href="/all">All Recipes</Nav.Link>
+					<Nav.Link href="/recipes">All Recipes</Nav.Link>
 					{isAuthenticated() ? <Nav.Link href="/user/recipes">My Recipes</Nav.Link> : ""}
+					{isAuthenticated() ? <Nav.Link href="/user/create">Add Recipe</Nav.Link> : ""}
 					{isAuthenticated() ? "" : <Nav.Link href="/login">Login</Nav.Link>}
 					{isAuthenticated() ? "" : <Nav.Link href="/register">Register</Nav.Link>}
 					{isAuthenticated() ? <Nav.Link onClick={this.doLogout}>Logout</Nav.Link> : ""}

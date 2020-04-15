@@ -59,6 +59,8 @@ class Register extends React.Component {
 	async doRegister(e) {
 		e.preventDefault();
 
+		const url = "http://localhost:8000/api/user/register";
+
 		// Validate  
 		let name = this.state.name.trim();
 		let username = this.state.username.trim();
@@ -72,8 +74,6 @@ class Register extends React.Component {
 			username: username,
 			password: password
 		});
-
-		const url = "http://localhost:8000/api/user/register";
 
 		try {
 			const resp = await post(url, data);
