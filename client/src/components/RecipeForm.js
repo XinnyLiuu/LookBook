@@ -19,7 +19,7 @@ class RecipeForm extends React.Component {
 
 		this.state = {
 			name: "",
-			calories: "",
+			calories: 0,
 			description: "",
 			ingredients: [],
 			error: false,
@@ -31,6 +31,7 @@ class RecipeForm extends React.Component {
 		this.addIngredientField = this.addIngredientField.bind(this);
 		this.createRecipe = this.createRecipe.bind(this);
 		this.updateRecipe = this.updateRecipe.bind(this);
+		this.removeIngredient = this.removeIngredient.bind(this);
 	}
 
     /** 
@@ -39,7 +40,6 @@ class RecipeForm extends React.Component {
      * @param {Event} e 
      */
 	handleChange(e) {
-		console.log(JSON.stringify(this.state));
 		let name = e.target.name;
 		let value = e.target.value;
 
@@ -80,7 +80,10 @@ class RecipeForm extends React.Component {
 			// Update the servingSize of the ingredient
 			const target = ingredients.filter(i => i.name === parentName)[0];
 			target.servingSize = value;
-			return;
+
+			return this.setState({
+				ingredients: ingredients
+			});
 		}
 
 		this.setState({
@@ -125,9 +128,15 @@ class RecipeForm extends React.Component {
 		const name = this.state.name;
 		const calories = this.state.calories;
 		const description = this.state.description;
-		const ingredients = this.state.ingredients;
+		let ingredients = this.state.ingredients;
 
-		if (name.length === 0 || calories.length === 0 || description.length === 0 || ingredients.length === 0) {
+		if (name.length === 0 || description.length === 0 || ingredients.length === 0) {
+			return this.setState({
+				warning: true
+			});
+		}
+
+		if (ingredients.filter(i => i.name.trim() === "" || i.name.trim() === "INIT" || i.servingSize.trim() === "").length > 0) {
 			return this.setState({
 				warning: true
 			});
@@ -136,7 +145,7 @@ class RecipeForm extends React.Component {
 		// Prepare data
 		const data = {
 			name: name.trim(),
-			calories: parseFloat(calories.trim()),
+			calories: parseFloat(calories),
 			description: description.trim(),
 			ingredients: ingredients,
 			userId: getUserInfo().getId()
@@ -215,9 +224,15 @@ class RecipeForm extends React.Component {
 		const name = this.state.name;
 		const calories = this.state.calories;
 		const description = this.state.description;
-		const ingredients = this.state.ingredients;
+		let ingredients = this.state.ingredients;
 
-		if (name.length === 0 || calories.length === 0 || description.length === 0 || ingredients.length === 0) {
+		if (name.length === 0 || description.length === 0 || ingredients.length === 0) {
+			return this.setState({
+				warning: true
+			});
+		}
+
+		if (ingredients.filter(i => i.name.trim() === "" || i.name.trim() === "INIT" || i.servingSize.trim() === "").length > 0) {
 			return this.setState({
 				warning: true
 			});
@@ -226,7 +241,7 @@ class RecipeForm extends React.Component {
 		// Prepare data
 		const data = {
 			name: name.trim(),
-			calories: parseFloat(calories.trim()),
+			calories: parseFloat(calories),
 			description: description.trim(),
 			ingredients: ingredients,
 			userId: getUserInfo().getId(),
@@ -248,6 +263,26 @@ class RecipeForm extends React.Component {
 				error: true
 			});
 		}
+	}
+
+	/**
+	 * Removes the target ingredient from the form
+	 * 
+	 * @param {Event} e 
+	 */
+	removeIngredient(e) {
+		e.preventDefault();
+
+		// Get the ingredient name
+		const target = e.target.dataset.ingredientName;
+
+		// Get ingredients from state
+		let ingredients = this.state.ingredients;
+		ingredients = ingredients.filter(i => i.name !== target);
+
+		this.setState({
+			ingredients: ingredients
+		});
 	}
 
     /**
@@ -302,6 +337,7 @@ class RecipeForm extends React.Component {
 											<Form.Label>Ingredient Serving Size</Form.Label>
 											<Form.Control type="text" placeholder="ie.) 4 cups, 1 lb" data-field-type="ingredient-serving" data-ingredient-name={i.name} onChange={this.handleChange} value={i.servingSize === "INIT" ? "" : i.servingSize} />
 										</Col>
+										<Button variant="danger" data-ingredient-name={i.name} onClick={this.removeIngredient}>X</Button>
 									</Form.Row>
 								</Form.Group>
 							</React.Fragment>

@@ -25,6 +25,7 @@ class Recipes extends React.Component {
 		super(props);
 
 		this.state = {
+			warning: false,
 			error: false,
 			data: []
 		};
@@ -162,8 +163,12 @@ class Recipes extends React.Component {
 	}
 
 	render() {
-		// Show error message if any errors occur in fetching the inital data
+		// Show error message if there any errors occur in fetching the inital data
 		if (this.state.error) return (<CustomAlert color="danger" message="There has been an error grabbing recipe data!" />);
+
+		// Show warning message if data is empty
+		if (this.state.warning) return (<CustomAlert color="warning" message="There are no recipes at this time :(" />);
+
 
 		// Check if data has been set into state
 		if (this.state.data.length > 0) {
