@@ -36,7 +36,7 @@ class Register extends React.Component {
 	/** 
 	 * Listens to and maps the user's input from into the component's state
 	 * 
-	 * @param {e} Event 
+	 * @param {Event} e 
 	 */
 	handleChange(e) {
 		let name = e.target.name;
@@ -54,7 +54,7 @@ class Register extends React.Component {
 	 * 400 - Bad Request
 	 * 201 - User created
 	 * 
-	 * @param {e} Event 
+	 * @param {Event} e 
 	 */
 	async doRegister(e) {
 		e.preventDefault();

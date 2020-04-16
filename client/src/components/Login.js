@@ -35,7 +35,7 @@ class Login extends React.Component {
 	/** 
 	 * Listens to and maps the user's input from into the component's state
 	 * 
-	 * @param {e} Event 
+	 * @param {Event} e 
 	 */
     handleChange(e) {
         let name = e.target.name;
@@ -54,7 +54,7 @@ class Login extends React.Component {
 	 * 400 - Bad Request
 	 * 200 - User found
 	 * 
-	 * @param {e} Event 
+	 * @param {Event} e 
 	 */
     async doLogin(e) {
         e.preventDefault();

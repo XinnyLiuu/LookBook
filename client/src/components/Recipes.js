@@ -1,13 +1,20 @@
 import React from 'react';
 import {
+	withRouter
+} from "react-router-dom";
+import {
 	CardColumns,
 	Card,
-	ListGroup
+	ListGroup,
+	Button
 } from "react-bootstrap";
 
 import CustomAlert from './CustomAlert';
 
-import { get } from '../utils/requests';
+import {
+	get,
+	del
+} from '../utils/requests';
 import {
 	isAuthenticated,
 	getUserInfo
@@ -21,6 +28,9 @@ class Recipes extends React.Component {
 			error: false,
 			data: []
 		};
+
+		this.removeUserRecipe = this.removeUserRecipe.bind(this);
+		this.editUserRecipe = this.editUserRecipe.bind(this);
 	}
 
 	/**
@@ -88,6 +98,57 @@ class Recipes extends React.Component {
 	}
 
 	/**
+	 * Removes a recipe from the associated user
+	 * 
+	 * 400 - Bad request
+	 * 200 - Recipe deleted for user
+	 * 
+	 * @param {Event} e 
+	 */
+	async removeUserRecipe(e) {
+		e.preventDefault();
+
+		// Get user id
+		const userId = getUserInfo().getId();
+
+		// Get recipe id
+		const recipeId = e.target.dataset.recipeId;
+
+		const url = `http://localhost:8000/api/recipe/${recipeId}/${userId}`;
+
+		try {
+			const resp = await del(url, {});
+
+			// 200
+			if (resp.status === 200) window.location.reload();
+
+			// 400
+			if (resp.status === 400) throw new Error();
+		} catch (e) {
+			console.log(e);
+
+			this.setState({
+				error: true
+			});
+		}
+	}
+
+	/**
+	 * Redirects user to a form with populated recipe data
+	 * 
+	 * @param {Event} e 
+	 */
+	async editUserRecipe(e) {
+		e.preventDefault();
+
+		// Get recipe id
+		const recipeId = e.target.dataset.recipeId;
+
+		// Redirect to Recipe component with state
+		this.props.history.push(`/user/edit/${recipeId}`);
+	}
+
+	/**
 	 * Grab all recipes 
 	 */
 	componentDidMount() {
@@ -122,23 +183,49 @@ class Recipes extends React.Component {
 					);
 				}
 
-				recipeCards.push(
-					<Card>
-						<Card.Body>
-							<Card.Title>{d.name}</Card.Title>
-							<Card.Subtitle className="mb-2 text-muted">
-								{d.calories} calories
-							</Card.Subtitle>
-							<Card.Subtitle className="mb-2 text-muted">
-								{d.description}
-							</Card.Subtitle>
-							<Card.Header>Ingredients</Card.Header>
-							<ListGroup variant="flush">
-								{ingredients}
-							</ListGroup>
-						</Card.Body>
-					</Card>
-				);
+				// Check if the layout to be rendered is user specific
+				if (this.props.type === "user" && isAuthenticated()) {
+					recipeCards.push(
+						<Card className="text-center">
+							<Card.Body>
+								<Card.Title>{d.name}</Card.Title>
+								<Card.Subtitle className="mb-2 text-muted">
+									{d.calories} calories
+								</Card.Subtitle>
+								<Card.Subtitle className="mb-2 text-muted">
+									{d.description}
+								</Card.Subtitle>
+								<Card.Header>Ingredients</Card.Header>
+								<ListGroup variant="flush">
+									{ingredients}
+								</ListGroup>
+								<br />
+								<Button variant="outline-primary" onClick={this.editUserRecipe} data-recipe-id={d._id}>Edit</Button>
+								{" "}
+								<Button variant="outline-danger" onClick={this.removeUserRecipe} data-recipe-id={d._id}>Remove</Button>
+							</Card.Body>
+						</Card>
+					);
+				}
+				else {
+					recipeCards.push(
+						<Card className="text-center">
+							<Card.Body>
+								<Card.Title>{d.name}</Card.Title>
+								<Card.Subtitle className="mb-2 text-muted">
+									{d.calories} calories
+								</Card.Subtitle>
+								<Card.Subtitle className="mb-2 text-muted">
+									{d.description}
+								</Card.Subtitle>
+								<Card.Header>Ingredients</Card.Header>
+								<ListGroup variant="flush">
+									{ingredients}
+								</ListGroup>
+							</Card.Body>
+						</Card>
+					);
+				}
 			}
 
 			return (
@@ -154,4 +241,4 @@ class Recipes extends React.Component {
 	}
 }
 
-export default Recipes;
+export default withRouter(Recipes);

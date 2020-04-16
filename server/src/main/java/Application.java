@@ -76,7 +76,7 @@ public class Application {
                 post("/add", RecipeController.createRecipe);
 
                 // Delete a recipe
-                delete("/:id", RecipeController.deleteRecipe);
+                delete("/:recipeId/:userId", RecipeController.deleteRecipe);
 
                 // Updates a recipe
                 put("/update", RecipeController.updateRecipe);

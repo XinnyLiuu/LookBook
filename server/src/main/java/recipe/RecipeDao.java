@@ -61,4 +61,26 @@ public class RecipeDao extends MongoManager<Recipe> {
 
         return recipes;
     }
+
+    /**
+     * Removes a recipe for a specified user
+     *
+     * @param recipeId Recipe's id
+     * @param userId   User's id
+     * @return Deleted recipe
+     */
+    public Recipe deleteUserRecipe(String recipeId, String userId) {
+        // Check if there is an existing recipe
+        Recipe target = coll.find(Filters.and(
+                Filters.eq("_id", recipeId),
+                Filters.eq("userId", userId)
+        )).first();
+
+        if (target == null) return null;
+
+        // Otherwise, remove this target recipe
+        target = deleteDoc(recipeId);
+
+        return target;
+    }
 }

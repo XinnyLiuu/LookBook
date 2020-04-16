@@ -123,12 +123,14 @@ public class RecipeController {
     /**
      * Delete a recipe by their id
      * Expected param:
-     * id - recipeId
+     * recipeId - recipeId
+     * userId - userId
      */
     public static Route deleteRecipe = (Request request, Response response) -> {
-        String id = request.params(":id");
+        String id = request.params(":recipeId");
+        String uid = request.params(":userId");
 
-        Recipe recipe = recipeDao.deleteDoc(id);
+        Recipe recipe = recipeDao.deleteUserRecipe(id, uid);
 
         if (recipe == null) {
             response.status(400);

@@ -30,21 +30,12 @@ const routing = (
 		<Header />
 		<Switch>
 			<Redirect exact from="/" to="/recipes" />
-			<Route exact path="/register" component={props =>
-				isAuthenticated() ? <NotFound /> : <Register />
-			} />
-			<Route exact path="/login" component={props =>
-				isAuthenticated() ? <NotFound /> : <Login />
-			} />
-			<Route exact path="/recipes" component={props =>
-				<Recipes type="all" />
-			} />
-			<Route exact path="/user/recipes" component={props =>
-				isAuthenticated() ? <Recipes type="user" /> : <NotFound />
-			} />
-			<Route exact path="/user/create" component={props =>
-				isAuthenticated() ? <RecipeForm /> : <NotFound />
-			} />
+			<Route exact path="/register" component={props => isAuthenticated() ? <NotFound /> : <Register />} />
+			<Route exact path="/login" component={props => isAuthenticated() ? <NotFound /> : <Login />} />
+			<Route exact path="/recipes" component={props => <Recipes type="all" />} />
+			<Route exact path="/user/recipes" component={props => isAuthenticated() ? <Recipes type="user" /> : <NotFound />} />
+			<Route exact path="/user/create" component={props => isAuthenticated() ? <RecipeForm /> : <NotFound />} />
+			<Route exact path="/user/edit/:id" component={props => isAuthenticated() ? <RecipeForm {...props} /> : <NotFound />} />
 			<Route component={NotFound} />
 		</Switch>
 	</Router>
