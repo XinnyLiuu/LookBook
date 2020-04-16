@@ -48,6 +48,12 @@ class Recipes extends React.Component {
 			if (resp.status === 200) {
 				const json = await resp.json();
 
+				if (json.length === 0) {
+					return this.setState({
+						warning: true
+					});
+				}
+
 				this.setState({
 					data: json
 				});
@@ -81,6 +87,12 @@ class Recipes extends React.Component {
 			// On 200
 			if (resp.status === 200) {
 				const json = await resp.json();
+
+				if (json.length === 0) {
+					return this.setState({
+						warning: true
+					});
+				}
 
 				this.setState({
 					data: json

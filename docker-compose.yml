@@ -1,7 +1,15 @@
 version: "3.7"
 services:
+    lookbook_client:
+        build: ./client
+        ports:
+            - 3000:3000
+        stdin_open: true
+        depends_on: 
+            - lookbook_api
+            
     lookbook_api:
-        build: .
+        build: ./server
         ports:
             - 8000:8000
         environment: 
@@ -13,7 +21,7 @@ services:
         image: mongo:4.2.5
         container_name: "mongodb"
         volumes:
-            - ./mongo_volume:/data/db
+            - ./Desktop/mongo_volume:/data/db
         ports:
             - 27017:27017
         
