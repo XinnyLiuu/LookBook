@@ -213,7 +213,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "5e94dde2b807754471e9472b"
+									"value": "5e97678450b098478bdd1ff6"
 								}
 							]
 						}
@@ -227,7 +227,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"deep Dish Pizza\",\n\t\"calories\": 1500,\n\t\"description\": \"Really really good pizza\",\n\t\"ingredients\": [\n\t\t{\n\t\t\t\"name\": \"Tomatoes\",\n\t\t\t\"servingSize\": \"4 Cups of Tomatoes\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"Dough\",\n\t\t\t\"servingSize\": \"5 Pounds of Dough\"\n\t\t}\n\t],\n\t\"userId\": \"5e94dde2b807754471e9472b\"\n}",
+							"raw": "{\n\t\"name\": \"deep Dish Pizza\",\n\t\"calories\": 1500,\n\t\"description\": \"Really really good pizza\",\n\t\"ingredients\": [\n\t\t{\n\t\t\t\"name\": \"Tomatoes\",\n\t\t\t\"servingSize\": \"4 Cups of Tomatoes\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"Dough\",\n\t\t\t\"servingSize\": \"5 Pounds of Dough\"\n\t\t}\n\t],\n\t\"userId\": \"5e9758cd50b098478bdd1c2f\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -252,17 +252,22 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{recipe_api}}/:id",
+							"raw": "{{recipe_api}}/:recipeId/:userId",
 							"host": [
 								"{{recipe_api}}"
 							],
 							"path": [
-								":id"
+								":recipeId",
+								":userId"
 							],
 							"variable": [
 								{
-									"key": "id",
-									"value": "5e94dfe2b807754471e947d3"
+									"key": "recipeId",
+									"value": "5e97994c50b098478bdd2d1f"
+								},
+								{
+									"key": "userId",
+									"value": "5e9758cd50b098478bdd1c2f"
 								}
 							]
 						}
@@ -276,7 +281,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Super Duper Deep Dish Pizza\",\n\t\"calories\": 1500,\n\t\"description\": \"Really really good pizza\",\n\t\"ingredients\": [\n\t\t{\n\t\t\t\"name\": \"Tomatoes\",\n\t\t\t\"servingSize\": \"4 Cups of Tomatoes\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"Dough\",\n\t\t\t\"servingSize\": \"5 Pounds of Dough\"\n\t\t}\n\t],\n\t\"userId\": \"5e94dde2b807754471e9472b\",\n\t\"_id\": \"5e94dfbab807754471e947c1\"\n}",
+							"raw": "{\n\t\"name\": \"Super Duper Deep Dish Pizza\",\n\t\"calories\": 1500,\n\t\"description\": \"Really really good pizza\",\n\t\"ingredients\": [\n\t\t{\n\t\t\t\"name\": \"Tomatoes\",\n\t\t\t\"servingSize\": \"4 Cups of Tomatoes\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"Dough\",\n\t\t\t\"servingSize\": \"5 Pounds of Dough\"\n\t\t}\n\t],\n\t\"userId\": \"5e9758cd50b098478bdd1c2f\",\n\t\"_id\": \"5e987f7050b098478bdd350c\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
