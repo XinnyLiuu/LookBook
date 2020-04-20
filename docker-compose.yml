@@ -6,14 +6,14 @@ services:
             - 3000:3000
         stdin_open: true
         environment:
-            - REACT_APP_USER_LOGIN=http://server:8000/api/user/login
-            - REACT_APP_USER_REGISTER=http://server:8000/api/user/register
-            - REACT_APP_RECIPE_ADD=http://server:8000/api/recipe/add
-            - REACT_APP_RECIPE_GET_BASE=http://server:8000/api/recipe
-            - REACT_APP_RECIPE_UPDATE=http://server:8000/api/recipe/update
-            - REACT_APP_RECIPE_ALL=http://server:8000/recipe/all
-            - REACT_APP_RECIPE_USER_BASE=http://server:8000//api/recipe/user
-            - REACT_APP_RECIPE_DELETE_BASE=http://server:8000/api/recipe
+            - REACT_APP_USER_LOGIN=http://192.168.44.43:8000/api/user/login
+            - REACT_APP_USER_REGISTER=http://192.168.44.43:8000/api/user/register
+            - REACT_APP_RECIPE_ADD=http://192.168.44.43:8000/api/recipe/add
+            - REACT_APP_RECIPE_GET_BASE=http://192.168.44.43:8000/api/recipe
+            - REACT_APP_RECIPE_UPDATE=http://192.168.44.43:8000/api/recipe/update
+            - REACT_APP_RECIPE_ALL=http://192.168.44.43:8000/recipe/all
+            - REACT_APP_RECIPE_USER_BASE=http://192.168.44.43:8000//api/recipe/user
+            - REACT_APP_RECIPE_DELETE_BASE=http://192.168.44.43:8000/api/recipe
         depends_on: 
             - server
 
