@@ -14,6 +14,7 @@ services:
             - REACT_APP_RECIPE_ALL=lookbook_api:8000/api/recipe/all
             - REACT_APP_RECIPE_USER_BASE=lookbook_api:8000/api/recipe/user
             - REACT_APP_RECIPE_DELETE_BASE=lookbook_api:8000/api/recipe
+            - REACT_APP_SERVER_IP=lookbook_api
         depends_on: 
             - lookbook_api
 
