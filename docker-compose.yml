@@ -7,7 +7,16 @@ services:
         stdin_open: true
         depends_on: 
             - lookbook_api
-            
+        environment:
+            - REACT_APP_USER_LOGIN=http://lookbook_api:8000/api/user/login
+            - REACT_APP_USER_REGISTER=http://lookbook_api:8000/api/user/register
+            - REACT_APP_RECIPE_ADD=http://lookbook_api:8000/api/recipe/add
+            - REACT_APP_RECIPE_GET_BASE=http://lookbook_api:8000/api/recipe
+            - REACT_APP_RECIPE_UPDATE=http://lookbook_api:8000/api/recipe/update
+            - REACT_APP_RECIPE_ALL=http://lookbook_api:8000/api/recipe/all
+            - REACT_APP_RECIPE_USER_BASE=http://lookbook_api:8000/api/recipe/user
+            - REACT_APP_RECIPE_DELETE_BASE=http://lookbook_api:8000/api/recipe
+
     lookbook_api:
         build: ./server
         ports:

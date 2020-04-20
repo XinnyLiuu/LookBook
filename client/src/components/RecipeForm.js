@@ -122,7 +122,8 @@ class RecipeForm extends React.Component {
 	async createRecipe(e) {
 		e.preventDefault();
 
-		const url = "http://localhost:8000/api/recipe/add";
+		// const url = "http://localhost:8000/api/recipe/add";
+		const url = process.env.REACT_APP_RECIPE_ADD;
 
 		// Validate
 		const name = this.state.name;
@@ -178,7 +179,8 @@ class RecipeForm extends React.Component {
      */
 	async getRecipe(id) {
 		// Prepare url 
-		const url = `http://localhost:8000/api/recipe/${id}`;
+		// const url = `http://localhost:8000/api/recipe/${id}`;
+		const url = `${process.env.REACT_APP_RECIPE_GET_BASE}/${id}`;
 
 		try {
 			const resp = await get(url);
@@ -218,7 +220,8 @@ class RecipeForm extends React.Component {
 		e.preventDefault();
 
 		// Prepare url
-		const url = "http://localhost:8000/api/recipe/update";
+		// const url = "http://localhost:8000/api/recipe/update";
+		const url = process.env.REACT_APP_RECIPE_UPDATE;
 
 		// Validate
 		const name = this.state.name;

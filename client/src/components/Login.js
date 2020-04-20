@@ -59,7 +59,8 @@ class Login extends React.Component {
     async doLogin(e) {
         e.preventDefault();
 
-        const url = "http://localhost:8000/api/user/login";
+        // const url = "http://localhost:8000/api/user/login";
+        const url = process.env.REACT_APP_USER_LOGIN;
 
         // Validate  
         let username = this.state.username.trim();

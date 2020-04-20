@@ -59,7 +59,8 @@ class Register extends React.Component {
 	async doRegister(e) {
 		e.preventDefault();
 
-		const url = "http://localhost:8000/api/user/register";
+		// const url = "http://localhost:8000/api/user/register";
+		const url = process.env.REACT_APP_USER_REGISTER;
 
 		// Validate  
 		let name = this.state.name.trim();

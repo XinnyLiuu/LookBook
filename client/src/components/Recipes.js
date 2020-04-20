@@ -39,7 +39,8 @@ class Recipes extends React.Component {
 	 */
 	async getRecipes() {
 		// Endpoint
-		const url = "http://localhost:8000/api/recipe/all";
+		// const url = "http://localhost:8000/api/recipe/all";
+		const url = process.env.REACT_APP_RECIPE_ALL;
 
 		try {
 			const resp = await get(url);
@@ -79,7 +80,8 @@ class Recipes extends React.Component {
 		const id = getUserInfo().getId();
 
 		// Endpoint
-		const url = `http://localhost:8000/api/recipe/user/${id}`;
+		// const url = `http://localhost:8000/api/recipe/user/${id}`;
+		const url = `${process.env.REACT_APP_RECIPE_USER_BASE}/${id}`;
 
 		try {
 			const resp = await get(url);
@@ -127,7 +129,8 @@ class Recipes extends React.Component {
 		// Get recipe id
 		const recipeId = e.target.dataset.recipeId;
 
-		const url = `http://localhost:8000/api/recipe/${recipeId}/${userId}`;
+		// const url = `http://localhost:8000/api/recipe/${recipeId}/${userId}`;
+		const url = `${process.env.REACT_APP_RECIPE_DELETE_BASE}/${recipeId}/${userId}`;
 
 		try {
 			const resp = await del(url, {});
