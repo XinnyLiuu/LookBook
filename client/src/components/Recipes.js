@@ -167,9 +167,7 @@ class Recipes extends React.Component {
 	/**
 	 * Grab all recipes 
 	 */
-	componentDidMount() {
-		console.log(process.env.REACT_APP_SERVER_IP);
-		
+	componentDidMount() {		
 		// Determine which view to load
 		if (this.props.type === "all") {
 			this.getRecipes();
